@@ -1,0 +1,23 @@
+name: Node.js CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Create a release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "*.*"
+        tag: v${{github.event.inputs.version}}
+        body: "Sample content"
+        name: "Release v${{github.event.inputs.version}}"
